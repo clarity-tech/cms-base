@@ -1,0 +1,41 @@
+{
+    "name": "clarity-tech/cms",
+    "description": ":package_description",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Author Name",
+            "email": "author@email.com",
+            "homepage": "http://author.com"
+        }
+    ],
+    "homepage": "https://github.com/clarity-tech/cms",
+    "keywords": ["Laravel", "Cms"],
+    "require": {
+        "illuminate/support": "~9"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~9.0",
+        "orchestra/testbench": "~7"
+    },
+    "autoload": {
+        "psr-4": {
+            "ClarityTech\\Cms\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ClarityTech\\Cms\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ClarityTech\\Cms\\CmsServiceProvider"
+            ],
+            "aliases": {
+                "Cms": "ClarityTech\\Cms\\Facades\\Cms"
+            }
+        }
+    }
+}
