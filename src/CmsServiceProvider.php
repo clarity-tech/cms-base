@@ -2,6 +2,14 @@
 
 namespace ClarityTech\Cms;
 
+use ClarityTech\Cms\Actions\CreateContent;
+use ClarityTech\Cms\Actions\DeleteContent;
+use ClarityTech\Cms\Actions\ListContent;
+use ClarityTech\Cms\Actions\UpdateContent;
+use ClarityTech\Cms\Contracts\CreatesContents;
+use ClarityTech\Cms\Contracts\DeletesContents;
+use ClarityTech\Cms\Contracts\ListsContents;
+use ClarityTech\Cms\Contracts\UpdatesContents;
 use Illuminate\Support\ServiceProvider;
 
 class CmsServiceProvider extends ServiceProvider
@@ -15,13 +23,15 @@ class CmsServiceProvider extends ServiceProvider
     {
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'clarity-tech');
         // $this->loadViewsFrom(__DIR__.'/../resources/views', 'clarity-tech');
-        // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        // $this->loadRoutesFrom(__DIR__.'/routes.php');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
 
         // Publishing is only necessary when using the CLI.
         if ($this->app->runningInConsole()) {
             $this->bootForConsole();
         }
+
+        // Filament::registerPlugin(new CmsPlugin());
     }
 
     /**
@@ -37,6 +47,11 @@ class CmsServiceProvider extends ServiceProvider
         $this->app->singleton('cms', function ($app) {
             return new Cms;
         });
+
+        app()->bind(CreatesContents::class, CreateContent::class);
+        app()->bind(UpdatesContents::class, UpdateContent::class);
+        app()->bind(DeletesContents::class, DeleteContent::class);
+        app()->bind(ListsContents::class, ListContent::class);
     }
 
     /**

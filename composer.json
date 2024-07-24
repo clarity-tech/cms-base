@@ -12,7 +12,12 @@
     "homepage": "https://github.com/clarity-tech/cms",
     "keywords": ["Laravel", "Cms"],
     "require": {
-        "illuminate/support": "~9"
+        "illuminate/support": "~11",
+        "filament/spatie-laravel-media-library-plugin": "^3.2",
+        "filament/spatie-laravel-tags-plugin": "^3.2",
+        "spatie/laravel-medialibrary": "^11.5",
+        "spatie/laravel-sluggable": "^3.6",
+        "spatie/laravel-tags": "^4.6"
     },
     "require-dev": {
         "phpunit/phpunit": "~9.0",
