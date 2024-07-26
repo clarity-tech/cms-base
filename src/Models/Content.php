@@ -20,6 +20,13 @@ class Content extends Model implements HasMedia
 {
     use HasFactory, SoftDeletes, InteractsByUser, HasSlug, InteractsWithMedia, HasTags;
 
+    protected $table = 'contents';
+
+    public function getTable()
+    {
+        return config('cms.table_names.contents', parent::getTable());
+    }
+
     protected $fillable = [
         'layout',
         'title',

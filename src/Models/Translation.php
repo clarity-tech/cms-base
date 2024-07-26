@@ -10,6 +10,13 @@ class Translation extends Model
 {
     use HasFactory;
 
+    protected $table = 'translations';
+
+    public function getTable()
+    {
+        return config('cms.table_names.translations', parent::getTable());
+    }
+
     public function content(): BelongsTo
     {
         return $this->belongsTo(Content::class);

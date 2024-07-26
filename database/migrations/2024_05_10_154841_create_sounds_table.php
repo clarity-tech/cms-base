@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sounds', function (Blueprint $table) {
+        Schema::create(config('cms.table_names.sounds'), function (Blueprint $table) {
             $table->id();
             $table->foreignId('type_id')
                 ->constrained('taxonomies')

@@ -13,6 +13,13 @@ class Taxonomy extends Model
 {
     use HasFactory, SoftDeletes, InteractsByUser;
 
+    protected $table = 'taxonomies';
+
+    public function getTable()
+    {
+        return config('cms.table_names.taxonomies', parent::getTable());
+    }
+
     protected $fillable = [
         'name',
         'type_of',

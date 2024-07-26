@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('taxonomies', function (Blueprint $table) {
+        Schema::create(config('cms.table_names.taxonomies'), function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('type_of');

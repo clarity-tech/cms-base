@@ -21,10 +21,9 @@ class CmsServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'clarity-tech');
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'clarity-tech');
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
+        if(config('cms.features.api')) {
+            $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
+        }
 
         // Publishing is only necessary when using the CLI.
         if ($this->app->runningInConsole()) {
@@ -42,11 +41,6 @@ class CmsServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../config/cms.php', 'cms');
-
-        // Register the service the package provides.
-        $this->app->singleton('cms', function ($app) {
-            return new Cms;
-        });
 
         app()->bind(CreatesContents::class, CreateContent::class);
         app()->bind(UpdatesContents::class, UpdateContent::class);
@@ -71,25 +65,17 @@ class CmsServiceProvider extends ServiceProvider
      */
     protected function bootForConsole(): void
     {
-        // Publishing the configuration file.
         $this->publishes([
             __DIR__.'/../config/cms.php' => config_path('cms.php'),
         ], 'cms.config');
 
-        // Publishing the views.
-        /*$this->publishes([
-            __DIR__.'/../resources/views' => base_path('resources/views/vendor/clarity-tech'),
-        ], 'cms.views');*/
+        $publishesMigrationsMethod = method_exists($this, 'publishesMigrations')
+            ? 'publishesMigrations'
+            : 'publishes';
 
-        // Publishing assets.
-        /*$this->publishes([
-            __DIR__.'/../resources/assets' => public_path('vendor/clarity-tech'),
-        ], 'cms.assets');*/
-
-        // Publishing the translation files.
-        /*$this->publishes([
-            __DIR__.'/../resources/lang' => resource_path('lang/vendor/clarity-tech'),
-        ], 'cms.lang');*/
+        $this->{$publishesMigrationsMethod}([
+            __DIR__ . '/../database/migrations' => database_path('migrations'),
+        ], 'cms.migrations');
 
         // Registering package commands.
         // $this->commands([]);

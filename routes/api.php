@@ -8,8 +8,8 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::middleware('auth:sanctum')
-    ->prefix('v1/')
+Route::middleware(config('cms.middlewares.api'))
+    ->prefix(config('cms.routes.api_prefix'))
     ->group(function () {
         Route::get('contents', [ContentController::class, 'index']);
         Route::get('contents/{content:slug}', [ContentController::class, 'show']);

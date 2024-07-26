@@ -9,13 +9,102 @@ This is where your description should go. Take a look at [contributing.md](contr
 
 ## Installation
 
-Via Composer
+To install and use the package in your laravel project, follow the steps below:
 
-```bash
-composer require clarity-tech/cms
+1. In your project's `composer.json` add the following code:
+
+    ```json
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/clarity-tech/cms-base"
+        }
+    ]
+    ```
+
+2. Require the package via Composer:
+
+    ```bash
+    composer require clarity-tech/cms
+    ```
+
+3. Publish the package configuration:
+
+    ```bash
+    php artisan vendor:publish --provider="ClarityTech\Cms\CmsServiceProvider" --tag="cms.config"
+    ```
+
+4. Publish the package migrations:
+
+    ```bash
+    php artisan vendor:publish --provider="ClarityTech\Cms\CmsServiceProvider" --tag="cms.migrations"
+    ```
+
+5. Run the migrations:
+
+    ```bash
+    php artisan migrate
+    ```
+
+## Configuration
+
+If you wish to use filament admin panel, add the following codes in your project's admin panel provider:
+
+```php
+use ClarityTech\Cms\Filament\Admin\Resources\ContentResource;
+use ClarityTech\Cms\Filament\Admin\Resources\TaxonomyResource;
+
+// $panel
+->resources([
+	ContentResource::class,
+	TaxonomyResource::class
+])
 ```
 
+You can change the `cms.php` file in config directory:
+
+1. `table_names`: Change the default names of database tables.
+2. `middlewares`: Add middlewares as per your need.
+3. `features`: Enable or disable features - API and Filament admin panel.
+4. `routes`: Customize route path by modifying prefix.
+
 ## Usage
+
+### Basic Usage
+
+#### Creating Content
+
+To create a new piece of content programmatically:
+
+```php
+use ClarityTech\Cms\Contracts\CreatesContents;
+
+app(CreatesContents::class)->create($data);
+```
+
+> Similarly other operations like updating, deleting and listing can be performed.
+
+### API Usage
+
+The package provides RESTful API endpoint for getting contents.
+
+1. List all contents
+
+    ```
+    GET /api/cms/contents
+    ```
+
+2. List specific content
+
+    ```
+    GET /api/cms/contents/{slug}
+    ```
+
+### Admin Panel Usage
+
+If you have Filament installed, you can access and manage your contents, taxonomies etc through the Filament interface.
+
+Just go to `/admin`.
 
 ## Change log
 

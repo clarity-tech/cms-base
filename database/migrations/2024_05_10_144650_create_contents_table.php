@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contents', function (Blueprint $table) {
+        Schema::create(config('cms.table_names.contents'), function (Blueprint $table) {
             $table->id();
             // $table->foreignId('author_id') // FIXME: disabled author_id in content table temporarily
             //     ->constrained('taxonomies')
