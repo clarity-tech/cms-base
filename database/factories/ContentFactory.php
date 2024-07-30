@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace ClarityTech\Cms\Database\Factories;
 
 use ClarityTech\Cms\Enums\ContentType;
 use App\Models\User;
