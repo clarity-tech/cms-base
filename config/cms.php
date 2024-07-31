@@ -23,6 +23,6 @@ return [
 
     // Customize routes
     'routes' => [
-        'api_prefix' => 'v1/',
+        'api_prefix' => 'api/cms',
     ],
 ];
