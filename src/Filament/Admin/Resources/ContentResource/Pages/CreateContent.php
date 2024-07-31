@@ -3,9 +3,11 @@
 namespace ClarityTech\Cms\Filament\Admin\Resources\ContentResource\Pages;
 
 use ClarityTech\Cms\Contracts\CreatesContents;
+use ClarityTech\Cms\DataTransferObjects\ContentData;
 use ClarityTech\Cms\Filament\Admin\Resources\ContentResource;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class CreateContent extends CreateRecord
 {
@@ -29,7 +31,14 @@ class CreateContent extends CreateRecord
     {
         $creates_contents = app(CreatesContents::class);
 
+        /* 
+            FIXME: $data is not containing the slug (null) cause slug is setup to generate by spatie sluggable.
+            So, using the Str::slug() helper function temporarily
+            Suggestion: We need to make sure that sluggable generate the slug before it reaches the ContentData 
+        */
+        $data['slug'] = Str::slug($data['title']);
+
         // Use CreatesContents contract to create content
-        return $creates_contents->create($data);
+        return $creates_contents->create(new ContentData($data));
     }
 }

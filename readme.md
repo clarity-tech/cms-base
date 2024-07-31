@@ -78,11 +78,50 @@ To create a new piece of content programmatically:
 
 ```php
 use ClarityTech\Cms\Contracts\CreatesContents;
+use ClarityTech\Cms\DataTransferObjects\ContentData;
+
+$data = new ContentData([
+    'title' => 'Sample Title',
+    'slug' => 'sample-slug',
+    'excerpt' => 'Sample Excerpt',
+    'content' => 'Sample Content',
+    'meta_tags' => ['tag1', 'tag2'],
+    'custom_properties' => ['key' => 'value'],
+    'order_column' => 1,
+    'type' => 'article',
+    'layout' => 'single',
+    'created_by' => 1,
+    'updated_by' => null,
+    'deleted_by' => null,
+    'published_at' => now(),
+]);
 
 app(CreatesContents::class)->create($data);
 ```
 
-> Similarly other operations like updating, deleting and listing can be performed.
+#### Updating Content
+
+```php
+use ClarityTech\Cms\Contracts\UpdatesContents;
+use ClarityTech\Cms\DataTransferObjects\ContentData;
+
+$data = new ContentData([
+    'title' => 'Sample Title Updated',
+    'slug' => 'sample-slug-updated',
+    'excerpt' => 'Sample Excerpt',
+    'content' => 'Sample Content',
+    'meta_tags' => ['tag1', 'tag2'],
+    'custom_properties' => ['key' => 'value'],
+    'order_column' => 1,
+    'type' => 'article',
+    'layout' => 'single',
+    'updated_by' => 1,
+    'deleted_by' => null,
+    'published_at' => now(),
+]);
+
+app(UpdatesContents::class)->update($id, $data);
+```
 
 ### API Usage
 

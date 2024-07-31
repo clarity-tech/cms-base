@@ -3,6 +3,7 @@
 namespace ClarityTech\Cms\Actions;
 
 use ClarityTech\Cms\Contracts\CreatesContents;
+use ClarityTech\Cms\DataTransferObjects\ContentData;
 use ClarityTech\Cms\Models\Content;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
@@ -17,14 +18,17 @@ class CreateContent implements CreatesContents
     }
 
     /**
-     * @param array $data
+     * @param ContentData $data
      * @return Content
      * @throws ValidationException
      */
-    public function create(array $data): Content
+    public function create(ContentData $data): Content
     {
+        // Convert data object to array for validation
+        $dataArray = $data->toArray();
+
         // validate data
-        $validator = Validator::make($data, [
+        $validator = Validator::make($dataArray, [
             'title' => 'required|string|max:255',
             'slug' => 'string|max:255|unique:contents,slug',
             'excerpt' => 'required|string|max:255',

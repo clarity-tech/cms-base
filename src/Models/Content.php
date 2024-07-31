@@ -20,6 +20,8 @@ class Content extends Model implements HasMedia
 {
     use HasFactory, SoftDeletes, InteractsByUser, HasSlug, InteractsWithMedia, HasTags;
 
+    public string $state;
+
     protected $fillable = [
         'layout',
         'title',
@@ -59,7 +61,7 @@ class Content extends Model implements HasMedia
         return SlugOptions::create()
             ->generateSlugsFrom('title')
             ->saveSlugsTo('slug')
-            ->slugsShouldBeNoLongerThan(255);;
+            ->slugsShouldBeNoLongerThan(255);
     }
 
     public function registerMediaCollections(): void
