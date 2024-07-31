@@ -194,7 +194,7 @@ class ContentResource extends Resource
                 // Tables\Actions\DeleteAction::make(),
                 Tables\Actions\Action::make('delete')
                     ->action(function (Content $record) {
-                        (app(DeletesContents::class))->delete($record);
+                        (app(DeletesContents::class))->delete($record->id);
                     })
                     ->requiresConfirmation()
                     ->icon('heroicon-m-trash')

@@ -31,7 +31,7 @@ class EditContent extends EditRecord
         $updates_contents = app(UpdatesContents::class);
 
         // update the content using UpdatesContents contract
-        return $updates_contents->update($model, $data);
+        return $updates_contents->update($model->id, $data);
     }
 
     protected function getHeaderActions(): array

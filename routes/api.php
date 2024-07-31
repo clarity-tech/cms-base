@@ -7,5 +7,5 @@ Route::middleware(config('cms.middlewares.api'))
     ->prefix(config('cms.routes.api_prefix'))
     ->group(function () {
         Route::get('contents', [ContentController::class, 'index']);
-        Route::get('contents/{content:slug}', [ContentController::class, 'show']);
+        Route::get('contents/{slug}', [ContentController::class, 'show']);
     });

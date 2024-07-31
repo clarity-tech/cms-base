@@ -4,26 +4,30 @@ namespace ClarityTech\Cms\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use ClarityTech\Cms\Http\Resources\ContentResource;
-use ClarityTech\Cms\Models\Content;
-use Exception;
 
 class ContentController extends Controller
 {
+    protected $contentModel;
+
+    public function __construct() {
+        $this->contentModel = app(config('cms.models.content'));
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $contents = Content::with(['createdBy', 'updatedBy'])->get();
+        $contents = $this->contentModel::with(['createdBy', 'updatedBy'])->get();
         return ContentResource::collection($contents);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Content $content)
+    public function show($slug)
     {
-        $content->load(['createdBy', 'updatedBy']);
+        $content = $this->contentModel::where('slug', $slug)->with(['createdBy', 'updatedBy'])->firstOrFail();
         return new ContentResource($content);
     }
 }

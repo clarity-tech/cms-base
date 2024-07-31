@@ -9,13 +9,23 @@ use Illuminate\Validation\ValidationException;
 
 class UpdateContent implements UpdatesContents
 {
+    protected $contentModel;
+
+    public function __construct()
+    {
+        $this->contentModel = app(config('cms.models.content'));
+    }
+
     /**
      * @param array $data
      * @return Content
      * @throws ValidationException
      */
-    public function update(Content $content, array $data): Content
+    public function update($id, array $data): Content
     {
+        // retrieve the content model instance by id
+        $content = $this->contentModel::findOrFail($id);
+
         // validate data
         $validator = Validator::make($data, [
             'title' => 'required|string|max:255',

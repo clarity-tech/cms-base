@@ -9,6 +9,13 @@ use Illuminate\Validation\ValidationException;
 
 class CreateContent implements CreatesContents
 {
+    protected $contentModel;
+
+    public function __construct()
+    {
+        $this->contentModel = app(config('cms.models.content'));
+    }
+
     /**
      * @param array $data
      * @return Content
@@ -38,6 +45,6 @@ class CreateContent implements CreatesContents
             throw new ValidationException($validator);
         }
         
-        return Content::create($validator->validated());
+        return $this->contentModel::create($validator->validated());
     }
 }
