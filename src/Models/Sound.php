@@ -10,13 +10,6 @@ class Sound extends Model
 {
     use HasFactory;
 
-    protected $table = 'sounds';
-
-    public function getTable()
-    {
-        return config('cms.table_names.sounds', parent::getTable());
-    }
-
     public function taxonomy(): BelongsTo
     {
         return $this->belongsTo(Taxonomy::class);

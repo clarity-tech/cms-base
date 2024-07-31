@@ -7,14 +7,6 @@ return [
         'web' => []
     ],
 
-    // Customize database table names
-    'table_names' => [
-        'contents' => 'contents',
-        'taxonomies' => 'taxonomies',
-        'translations' => 'translations',
-        'sounds' => 'sounds',
-    ],
-
     // Allow users to override model classes
     'models' => [
         'content' => \ClarityTech\Cms\Models\Content::class,
