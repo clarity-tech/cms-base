@@ -28,25 +28,31 @@ To install and use the package in your laravel project, follow the steps below:
     composer require clarity-tech/cms
     ```
 
-3. Publish the package configuration:
-
-    ```bash
-    php artisan vendor:publish --provider="ClarityTech\Cms\CmsServiceProvider" --tag="cms.config"
-    ```
-
-4. Publish the package migrations:
-
-    ```bash
-    php artisan vendor:publish --provider="ClarityTech\Cms\CmsServiceProvider" --tag="cms.migrations"
-    ```
-
-5. Run the migrations:
+3. Run the migrations:
 
     ```bash
     php artisan migrate
     ```
 
 ## Configuration
+
+### Publishing
+
+If you wish to publish config, migrations etc.
+
+1. Publish the package configuration:
+
+    ```bash
+    php artisan vendor:publish --provider="ClarityTech\Cms\CmsServiceProvider" --tag="cms.config"
+    ```
+
+2. Publish the package migrations:
+
+    ```bash
+    php artisan vendor:publish --provider="ClarityTech\Cms\CmsServiceProvider" --tag="cms.migrations"
+    ```
+
+### Filament Admin Panel
 
 If you wish to use filament admin panel, add the following codes in your project's admin panel provider:
 
@@ -61,12 +67,13 @@ use ClarityTech\Cms\Filament\Admin\Resources\TaxonomyResource;
 ])
 ```
 
+### Config file
+
 You can change the `cms.php` file in config directory:
 
-1. `table_names`: Change the default names of database tables.
-2. `middlewares`: Add middlewares as per your need.
-3. `features`: Enable or disable features - API and Filament admin panel.
-4. `routes`: Customize route path by modifying prefix.
+1. `middlewares`: Add middlewares as per your need.
+2. `features`: Enable or disable features - API and Filament admin panel.
+3. `routes`: Customize route path by modifying prefix.
 
 ## Usage
 
