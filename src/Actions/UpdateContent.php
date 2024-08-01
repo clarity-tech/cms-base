@@ -44,7 +44,7 @@ class UpdateContent implements UpdatesContents
             'order_column' => 'required|integer',
             'type' => 'required|string',
             'layout' => 'required|string',
-            'updated_by' => 'nullable|exists:users,id',
+            'updated_by' => 'required|exists:users,id',
             'published_at' => 'nullable|date',
         ]);
 
