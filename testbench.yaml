@@ -1,0 +1,5 @@
+providers:
+  - ClarityTech\Cms\CmsServiceProvider
+
+migrations:
+  - database/migrations

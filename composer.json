@@ -10,7 +10,10 @@
         }
     ],
     "homepage": "https://github.com/clarity-tech/cms",
-    "keywords": ["Laravel", "Cms"],
+    "keywords": [
+        "Laravel",
+        "Cms"
+    ],
     "require": {
         "illuminate/support": "~11",
         "filament/spatie-laravel-media-library-plugin": "^3.2",
@@ -46,5 +49,25 @@
                 "Cms": "ClarityTech\\Cms\\Facades\\Cms"
             }
         }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@clear",
+            "@prepare"
+        ],
+        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "build": "@php vendor/bin/testbench workbench:build --ansi",
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "@build",
+            "@php vendor/bin/testbench serve"
+        ],
+        "lint": [
+            "@php vendor/bin/phpstan analyse"
+        ],
+        "test": [
+            "@php vendor/bin/phpunit"
+        ]
     }
 }
