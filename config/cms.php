@@ -15,6 +15,13 @@ return [
         'sound' => \ClarityTech\Cms\Models\Sound::class,
     ],
 
+    'actions' => [
+        'create_content' => \ClarityTech\Cms\Actions\CreateContent::class,
+        'update_content' => \ClarityTech\Cms\Actions\UpdateContent::class,
+        'delete_content' => \ClarityTech\Cms\Actions\DeleteContent::class,
+        'list_content' => \ClarityTech\Cms\Actions\ListContent::class,
+    ],
+
     // Enable/disable features
     'features' => [
         // 'filament_admin' => true,

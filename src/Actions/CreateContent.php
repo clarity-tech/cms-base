@@ -2,9 +2,9 @@
 
 namespace ClarityTech\Cms\Actions;
 
+use ClarityTech\Cms\Cms;
 use ClarityTech\Cms\Contracts\CreatesContents;
 use ClarityTech\Cms\DataTransferObjects\ContentData;
-use ClarityTech\Cms\Models\Content;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -14,15 +14,15 @@ class CreateContent implements CreatesContents
 
     public function __construct()
     {
-        $this->contentModel = app(config('cms.models.content'));
+        $this->contentModel = Cms::contentModel();
     }
 
     /**
      * @param ContentData $data
-     * @return Content
+     * @return mixed
      * @throws ValidationException
      */
-    public function create(ContentData $data): Content
+    public function create(ContentData $data)
     {
         // Convert data object to array for validation
         $dataArray = $data->toArray();

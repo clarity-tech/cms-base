@@ -2,14 +2,6 @@
 
 namespace ClarityTech\Cms;
 
-use ClarityTech\Cms\Actions\CreateContent;
-use ClarityTech\Cms\Actions\DeleteContent;
-use ClarityTech\Cms\Actions\ListContent;
-use ClarityTech\Cms\Actions\UpdateContent;
-use ClarityTech\Cms\Contracts\CreatesContents;
-use ClarityTech\Cms\Contracts\DeletesContents;
-use ClarityTech\Cms\Contracts\ListsContents;
-use ClarityTech\Cms\Contracts\UpdatesContents;
 use Illuminate\Support\ServiceProvider;
 
 class CmsServiceProvider extends ServiceProvider
@@ -44,10 +36,15 @@ class CmsServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__.'/../config/cms.php', 'cms');
 
-        app()->bind(CreatesContents::class, CreateContent::class);
-        app()->bind(UpdatesContents::class, UpdateContent::class);
-        app()->bind(DeletesContents::class, DeleteContent::class);
-        app()->bind(ListsContents::class, ListContent::class);
+        // Register the service the package provides.
+        $this->app->singleton('cms', function ($app) {
+            return new Cms;
+        });
+
+        Cms::createContentsUsing(config('cms.actions.create_content'));
+        Cms::updateContentUsing(config('cms.actions.update_content'));
+        Cms::deleteContentUsing(config('cms.actions.delete_content'));
+        Cms::listContentUsing(config('cms.actions.list_content'));
     }
 
     /**

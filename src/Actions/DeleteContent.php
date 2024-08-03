@@ -2,6 +2,7 @@
 
 namespace ClarityTech\Cms\Actions;
 
+use ClarityTech\Cms\Cms;
 use ClarityTech\Cms\Contracts\DeletesContents;
 
 class DeleteContent implements DeletesContents
@@ -10,7 +11,7 @@ class DeleteContent implements DeletesContents
 
     public function __construct()
     {
-        $this->contentModel = app(config('cms.models.content'));
+        $this->contentModel = Cms::contentModel();
     }
 
     /**

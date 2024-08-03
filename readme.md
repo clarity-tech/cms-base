@@ -74,6 +74,8 @@ You can change the `cms.php` file in config directory:
 1. `middlewares`: Add middlewares as per your need.
 2. `features`: Enable or disable features - API and Filament admin panel.
 3. `routes`: Customize route path by modifying prefix.
+4. `models`: You can have your own models and use those.
+5. `actions`: You can add your own actions as well.
 
 ## Usage
 

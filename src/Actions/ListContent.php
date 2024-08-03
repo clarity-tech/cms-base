@@ -2,6 +2,7 @@
 
 namespace ClarityTech\Cms\Actions;
 
+use ClarityTech\Cms\Cms;
 use ClarityTech\Cms\Contracts\ListsContents;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -11,7 +12,7 @@ class ListContent implements ListsContents
 
     public function __construct()
     {
-        $this->contentModel = app(config('cms.models.content'));
+        $this->contentModel = Cms::contentModel();
     }
 
     /**

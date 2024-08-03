@@ -2,7 +2,7 @@
 
 namespace ClarityTech\Cms\Actions;
 
-use ClarityTech\Cms\Models\Content;
+use ClarityTech\Cms\Cms;
 use ClarityTech\Cms\Contracts\UpdatesContents;
 use ClarityTech\Cms\DataTransferObjects\ContentData;
 use Illuminate\Support\Facades\Validator;
@@ -14,15 +14,15 @@ class UpdateContent implements UpdatesContents
 
     public function __construct()
     {
-        $this->contentModel = app(config('cms.models.content'));
+        $this->contentModel = Cms::contentModel();
     }
 
     /**
      * @param ContentData $data
-     * @return Content
+     * @return mixed
      * @throws ValidationException
      */
-    public function update($id, ContentData $data): Content
+    public function update($id, ContentData $data)
     {
         // retrieve the content model instance by id
         $content = $this->contentModel::findOrFail($id);
