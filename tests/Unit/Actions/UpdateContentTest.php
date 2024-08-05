@@ -4,8 +4,8 @@ namespace ClarityTech\Cms\Tests\Unit\Actions;
 
 use App\Models\User;
 use ClarityTech\Cms\Actions\UpdateContent;
+use ClarityTech\Cms\Cms;
 use ClarityTech\Cms\DataTransferObjects\ContentData;
-use ClarityTech\Cms\Models\Content;
 use ClarityTech\Cms\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
@@ -28,7 +28,7 @@ class UpdateContentTest extends TestCase
     public function it_can_update_content()
     {
         // first create a content
-        $content = Content::create([
+        $content = Cms::contentModel()::create([
             'layout' => 'default',
             'title' => 'Sample Title',
             'slug' => 'sample-title',
@@ -65,7 +65,7 @@ class UpdateContentTest extends TestCase
 
         $updatedContent = $action->update($content->id, new ContentData($data));
 
-        $this->assertInstanceOf(Content::class, $updatedContent);
+        $this->assertInstanceOf(Cms::contentModel(), $updatedContent);
         $this->assertEquals($data['title'], $updatedContent->title);
         $this->assertEquals($data['updated_by'], $updatedContent->updated_by);
     }

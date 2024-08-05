@@ -3,7 +3,7 @@
 namespace ClarityTech\Cms\Tests\Feature\Controllers;
 
 use App\Models\User;
-use ClarityTech\Cms\Models\Content;
+use ClarityTech\Cms\Cms;
 use ClarityTech\Cms\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 // use Illuminate\Support\Facades\Route;
@@ -33,7 +33,7 @@ class ContentControllerTest extends TestCase
     {
         // Create 3 content items manually
         for ($i = 1; $i <= 3; $i++) {
-            Content::create([
+            Cms::contentModel()::create([
                 'title' => "Sample Title $i",
                 'slug' => "sample-slug-$i",
                 'excerpt' => 'Sample Excerpt',
@@ -61,7 +61,7 @@ class ContentControllerTest extends TestCase
     public function it_can_show_a_content()
     {
         // Create a single content item
-        $content = Content::create([
+        $content = Cms::contentModel()::create([
             'title' => 'Sample Title',
             'slug' => 'sample-slug',
             'excerpt' => 'Sample Excerpt',

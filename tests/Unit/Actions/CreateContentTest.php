@@ -4,8 +4,8 @@ namespace ClarityTech\Cms\Tests\Unit\Actions;
 
 use App\Models\User;
 use ClarityTech\Cms\Actions\CreateContent;
+use ClarityTech\Cms\Cms;
 use ClarityTech\Cms\DataTransferObjects\ContentData;
-use ClarityTech\Cms\Models\Content;
 use ClarityTech\Cms\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
@@ -47,7 +47,7 @@ class CreateContentTest extends TestCase
 
         $content = $action->create(new ContentData($data));
 
-        $this->assertInstanceOf(Content::class, $content);
+        $this->assertInstanceOf(Cms::contentModel(), $content);
         $this->assertEquals($data['title'], $content->title);
     }
 }

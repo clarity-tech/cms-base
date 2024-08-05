@@ -4,7 +4,7 @@ namespace ClarityTech\Cms\Tests\Unit\Actions;
 
 use App\Models\User;
 use ClarityTech\Cms\Actions\DeleteContent;
-use ClarityTech\Cms\Models\Content;
+use ClarityTech\Cms\Cms;
 use ClarityTech\Cms\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
@@ -27,7 +27,7 @@ class DeleteContentTest extends TestCase
     public function it_can_delete_content()
     {
         // first create a content
-        $content = Content::create([
+        $content = Cms::contentModel()::create([
             'layout' => 'default',
             'title' => 'Sample Title',
             'slug' => 'sample-title',
@@ -53,10 +53,10 @@ class DeleteContentTest extends TestCase
         );
 
         // Assert that the content is not returned in a normal query
-        $this->assertNull(Content::find($content->id));
+        $this->assertNull(Cms::contentModel()::find($content->id));
 
         // Check if the content exists in the database when including soft deleted records
-        $deletedContent = Content::withTrashed()->find($content->id);
+        $deletedContent = Cms::contentModel()::withTrashed()->find($content->id);
         $this->assertNotNull($deletedContent);
         $this->assertNotNull($deletedContent->deleted_at);
     }
