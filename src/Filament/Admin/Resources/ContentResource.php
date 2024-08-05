@@ -7,7 +7,6 @@ use ClarityTech\Cms\Filament\Actions\PublishAction;
 use ClarityTech\Cms\Filament\Actions\UnpublishAction;
 use ClarityTech\Cms\Filament\Admin\Resources\ContentResource\Pages;
 use ClarityTech\Cms\Forms\ContentForm;
-use ClarityTech\Cms\Models\Content;
 
 // use App\Contracts\DeletesContents;
 // use App\Filament\Actions\PublishAction;
@@ -17,6 +16,7 @@ use ClarityTech\Cms\Models\Content;
 // use App\Models\Content;
 
 use Carbon\Carbon;
+use ClarityTech\Cms\Cms;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Form;
@@ -33,11 +33,16 @@ use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use InvalidArgumentException;
 
 class ContentResource extends Resource
 {
-    protected static ?string $model = Content::class;
+    public static function getModel(): string
+    {
+        return config('cms.models.content');
+    }
 
     protected static ?string $navigationIcon = 'heroicon-o-folder-open';
 
@@ -191,9 +196,15 @@ class ContentResource extends Resource
             ], layout: FiltersLayout::Modal)->persistFiltersInSession()->filtersFormColumns(3)
             ->actions([
                 Tables\Actions\EditAction::make(),
-                // Tables\Actions\DeleteAction::make(),
                 Tables\Actions\Action::make('delete')
-                    ->action(function (Content $record) {
+                    ->action(function (Model $record) {
+                        $contentModel = Cms::contentModel();
+
+                        if(!$record instanceof $contentModel)
+                        {
+                            throw new InvalidArgumentException("Invalid Content model instance.");
+                        }
+
                         (app(DeletesContents::class))->delete($record->id);
                     })
                     ->requiresConfirmation()

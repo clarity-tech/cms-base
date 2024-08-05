@@ -2,9 +2,10 @@
 
 namespace ClarityTech\Cms\Filament\Actions;
 
-use ClarityTech\Cms\Models\Content;
+use ClarityTech\Cms\Cms;
 use Filament\Tables\Actions\Action;
 use Illuminate\Database\Eloquent\Model;
+use InvalidArgumentException;
 
 class PublishAction extends Action
 {
@@ -21,11 +22,29 @@ class PublishAction extends Action
 
         $this->icon('heroicon-o-check-circle');
 
-        $this->action(function (Content|Model $record) {
+        $this->action(function (Model $record) 
+        {
+            $contentModel = Cms::contentModel();
+
+            if (!$record instanceof $contentModel) 
+            {
+                throw new InvalidArgumentException("Invalid Content model instance.");
+            }
+            
             $record->published_at = now();
             $record->save();
         });
 
-        $this->visible(fn (Content $record) => !$record->isPublished() && !$record->trashed());
+        $this->visible(function (Model $record) 
+        {
+            $contentModel = Cms::contentModel();
+
+            if (!$record instanceof $contentModel) 
+            {
+                throw new InvalidArgumentException("Invalid Content model instance.");
+            }
+
+            return !$record->isPublished() && !$record->trashed();
+        });
     }
 }
