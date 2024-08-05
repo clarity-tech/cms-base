@@ -8,13 +8,6 @@ use ClarityTech\Cms\Filament\Actions\UnpublishAction;
 use ClarityTech\Cms\Filament\Admin\Resources\ContentResource\Pages;
 use ClarityTech\Cms\Forms\ContentForm;
 
-// use App\Contracts\DeletesContents;
-// use App\Filament\Actions\PublishAction;
-// use App\Filament\Actions\UnpublishAction;
-// use App\Filament\Admin\Resources\ContentResource\Pages;
-// use App\Forms\ContentForm;
-// use App\Models\Content;
-
 use Carbon\Carbon;
 use ClarityTech\Cms\Cms;
 use Filament\Forms;

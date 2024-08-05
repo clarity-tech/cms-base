@@ -3,7 +3,6 @@
 namespace ClarityTech\Cms\Filament\Admin\Resources\TaxonomyResource\Pages;
 
 use ClarityTech\Cms\Filament\Admin\Resources\TaxonomyResource;
-use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateTaxonomy extends CreateRecord
