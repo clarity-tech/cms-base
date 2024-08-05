@@ -2,6 +2,7 @@
 
 namespace ClarityTech\Cms\Models;
 
+use ClarityTech\Cms\Cms;
 use ClarityTech\Cms\Traits\InteractsByUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,7 +32,7 @@ class Taxonomy extends Model
 
     public function contents(): HasMany
     {
-        return $this->hasMany(Content::class);
+        return $this->hasMany(Cms::contentModel());
     }
 
     public function sounds(): HasMany
