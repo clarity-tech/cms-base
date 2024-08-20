@@ -108,15 +108,14 @@ class CommentTest extends TestCase
     public function it_can_show_a_comment()
     {
         // Create a comment
-        $this->create_comment();
+        $comment = $this->create_comment();
 
-        $this->actingAs($this->user)->getJson(config('cms.routes.api_prefix') . "/contents/{$this->content->slug}/comments")
+        $this->actingAs($this->user)->getJson(config('cms.routes.api_prefix') . "/comments/{$comment->id}")
             ->assertStatus(JsonResponse::HTTP_OK)
             ->assertJson([
                 'data' => [
-                    [
-                        'comment' => "This is a demo comment",
-                    ]
+                    'id' => $comment->id,
+                    'comment' => "This is a demo comment",
                 ]
             ]);
     }
@@ -129,6 +128,8 @@ class CommentTest extends TestCase
         $this->actingAs($this->user)->putJson(config('cms.routes.api_prefix') . "/comments/{$comment->id}", [
             'comment' => 'This is an updated comment',
         ])->assertStatus(JsonResponse::HTTP_ACCEPTED);
+
+        $this->assertDatabaseHas('comments', ['comment' => 'This is an updated comment']);
     }
 
     #[Test]
@@ -140,6 +141,7 @@ class CommentTest extends TestCase
             ->deleteJson(config('cms.routes.api_prefix') . "/comments/{$comment->id}")
             ->assertStatus(JsonResponse::HTTP_NO_CONTENT);
 
+        $this->assertSoftDeleted($comment);
         $this->assertDatabaseCount('comments', 1);
     }
 }

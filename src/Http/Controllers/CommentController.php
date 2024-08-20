@@ -35,19 +35,22 @@ class CommentController extends Controller
         return response($comment, Response::HTTP_CREATED);
     }
 
+    // TODO: Use route model binding in show, update and destroy method; it's replaced with $id as not working
     /**
      * Display the specified resource.
      */
-    public function show(Comment $comment): CommentResource
+    public function show($id): CommentResource
     {
+        $comment = Comment::findOrFail($id);
         return new CommentResource($comment);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Comment $comment): Response
+    public function update(Request $request, $id): Response
     {
+        $comment = Comment::findOrFail($id);
         $comment->update($request->all());
 
         return response($comment, Response::HTTP_ACCEPTED);
@@ -56,8 +59,9 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Comment $comment)
+    public function destroy($id)
     {
+        $comment = Comment::findOrFail($id);
         $comment->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
