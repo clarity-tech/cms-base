@@ -33,7 +33,6 @@ class CommentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'content_id' => $this->content_id,
             'user_id' => $this->user_id,
             'ip' => $this->ip,
             'is_approved' => $this->is_approved,
@@ -41,10 +40,9 @@ class CommentResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at,
-            // 'children' => CommentResource::collection($this->whenLoaded('children')),
-            // 'commentable' => $this->when($this->relationLoaded('commentable'), function () {
-            //     return $this->commentable->toArray();
-            // }),
+            'commentable' => $this->when($this->relationLoaded('commentable'), function () {
+                return $this->commentable->toArray();
+            }),
             'user' => $this->when($this->relationLoaded('user'), function () {
                 return $this->user->toArray();
             }),

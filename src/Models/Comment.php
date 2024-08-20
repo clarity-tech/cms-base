@@ -18,11 +18,12 @@ class Comment extends Model
     use InteractsByUser;
 
     protected $fillable = [
-        'content_id',
         'user_id',
         'ip',
         'is_approved',
         'comment',
+        'commentable_type',
+        'commentable_id',
     ];
 
     protected function casts() : array
@@ -30,11 +31,6 @@ class Comment extends Model
         return [
             'is_approved' => 'boolean',
         ];
-    }
-
-    public function content(): BelongsTo
-    {
-        return $this->belongsTo(Cms::contentModel(), 'content_id');
     }
 
     public function user(): BelongsTo

@@ -53,12 +53,11 @@ class CommentTest extends TestCase
     {
         return Comment::create([
             'user_id' => $this->user->id,
-            'content_id' => $this->content->id,
             'ip' => '192.168.1.1',
             'is_approved' => true,
             'comment' => 'This is a demo comment',
-            // 'commentable_type' => 'ClarityTech\Cms\Models\Content',
-            // 'commentable_id' => $content->id,
+            'commentable_type' => 'ClarityTech\Cms\Models\Content',
+            'commentable_id' => $this->content->id,
         ]);
     }
 
@@ -92,12 +91,11 @@ class CommentTest extends TestCase
         $this->actingAs($this->user)
             ->postJson(config('cms.routes.api_prefix') . "/contents/{$this->content->slug}/comments", [
                 'user_id' => $this->user->id,
-                'content_id' => $this->content->id,
                 'ip' => '192.168.1.1',
                 'is_approved' => true,
                 'comment' => "This is a demo comment",
-                // 'commentable_type' => 'ClarityTech\Cms\Models\Content',
-                // 'commentable_id' => $content->id,
+                'commentable_type' => 'ClarityTech\Cms\Models\Content',
+                'commentable_id' => $this->content->id,
             ])
             ->assertStatus(JsonResponse::HTTP_CREATED);
             
