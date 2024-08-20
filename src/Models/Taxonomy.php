@@ -34,9 +34,4 @@ class Taxonomy extends Model
     {
         return $this->hasMany(Cms::contentModel());
     }
-
-    public function sounds(): HasMany
-    {
-        return $this->hasMany(Sound::class);
-    }
 }

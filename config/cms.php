@@ -12,7 +12,6 @@ return [
         'content' => \ClarityTech\Cms\Models\Content::class,
         'taxonomy' => \ClarityTech\Cms\Models\Taxonomy::class,
         'translation' => \ClarityTech\Cms\Models\Translation::class,
-        'sound' => \ClarityTech\Cms\Models\Sound::class,
     ],
 
     'actions' => [
