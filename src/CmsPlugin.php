@@ -7,6 +7,7 @@ use ClarityTech\Cms\Filament\Admin\Resources\ContentResource\Pages\CreateContent
 use ClarityTech\Cms\Filament\Admin\Resources\ContentResource\Pages\EditContent;
 use ClarityTech\Cms\Filament\Admin\Resources\ContentResource\Pages\ListContents;
 use ClarityTech\Cms\Filament\Admin\Resources\TaxonomyResource;
+use ClarityTech\Cms\Filament\Admin\Resources\CommentResource;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 
@@ -22,7 +23,8 @@ class CmsPlugin implements Plugin
         $panel
             ->resources([
                 ContentResource::class,
-                TaxonomyResource::class
+                TaxonomyResource::class,
+                CommentResource::class,
             ])
             ->pages([
                 CreateContent::class,

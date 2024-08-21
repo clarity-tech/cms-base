@@ -10,6 +10,7 @@ use ClarityTech\Cms\Forms\ContentForm;
 
 use Carbon\Carbon;
 use ClarityTech\Cms\Cms;
+use ClarityTech\Cms\Filament\Admin\Resources\ContentResource\RelationManagers\CommentsRelationManager;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Form;
@@ -217,7 +218,7 @@ class ContentResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            CommentsRelationManager::class,
         ];
     }
 
