@@ -1,12 +1,5 @@
 # Cms
 
-[![Latest Version on Packagist][ico-version]][link-packagist]
-[![Total Downloads][ico-downloads]][link-downloads]
-[![Build Status][ico-travis]][link-travis]
-[![StyleCI][ico-styleci]][link-styleci]
-
-This is where your description should go. Take a look at [contributing.md](contributing.md) to see a to do list.
-
 ## Installation
 
 To install and use the package in your laravel project, follow the steps below:
@@ -59,11 +52,13 @@ If you wish to use filament admin panel, add the following codes in your project
 ```php
 use ClarityTech\Cms\Filament\Admin\Resources\ContentResource;
 use ClarityTech\Cms\Filament\Admin\Resources\TaxonomyResource;
+use ClarityTech\Cms\Filament\Admin\Resources\CommentResource;
 
 // $panel
 ->resources([
 	ContentResource::class,
-	TaxonomyResource::class
+	TaxonomyResource::class,
+    CommentResource::class
 ])
 ```
 
@@ -148,6 +143,150 @@ The package provides RESTful API endpoint for getting contents.
     GET /api/cms/contents/{slug}
     ```
 
+The package provides RESTful API endpoints for comments.
+
+1.  Create a new comment
+
+    ```
+    POST /api/cms/contents/sample-title/comments
+    ```
+
+    Body:
+
+    ```json
+    {
+        "user_id": 1,
+        "comment": "This is a test comment",
+        "commentable_type": "ClarityTech\\Cms\\Models\\Content",
+        "commentable_id": 1,
+        "ip": "192.168.1.1",
+        "is_approved": 1
+    }
+    ```
+
+    Success response:
+
+    201 Created
+
+    ```json
+    {
+        "user_id": 1,
+        "comment": "This is a test comment",
+        "commentable_type": "ClarityTech\\Cms\\Models\\Content",
+        "commentable_id": 1,
+        "ip": "192.168.1.1",
+        "is_approved": true,
+        "updated_at": "2024-08-22T12:44:03.000000Z",
+        "created_at": "2024-08-22T12:44:03.000000Z",
+        "id": 3
+    }
+    ```
+
+2. List all comments for a specific content
+
+    ```
+    GET /api/cms/contents/{slug}/comments
+    ```
+
+    Success response:
+
+    200 Ok
+
+    ```json
+    {
+        "data": [
+            {
+                "id": 1,
+                "user_id": 1,
+                "ip": null,
+                "is_approved": true,
+                "comment": "This is a test comment",
+                "created_at": "2024-08-20T18:31:57.000000Z",
+                "updated_at": "2024-08-21T20:14:04.000000Z",
+                "deleted_at": null
+            },
+            {
+                "id": 2,
+                "user_id": 1,
+                "ip": null,
+                "is_approved": false,
+                "comment": "Nice comment",
+                "created_at": "2024-08-20T18:31:57.000000Z",
+                "updated_at": "2024-08-21T20:20:03.000000Z",
+                "deleted_at": null
+            }
+        ]
+    }
+    ```
+
+3. Get a specific comment
+
+    ```
+    GET /api/cms/comments/{id}
+    ```
+
+    Success response:
+
+    200 Ok
+
+    ```json
+    {
+        "data": {
+            "id": 1,
+            "user_id": 1,
+            "ip": null,
+            "is_approved": true,
+            "comment": "This is a test comment",
+            "created_at": "2024-08-20T18:31:57.000000Z",
+            "updated_at": "2024-08-21T20:14:04.000000Z",
+            "deleted_at": null
+        }
+    }
+    ```
+4. Update a specific comment
+
+    ```
+    PUT /api/cms/comments/{slug}
+    ```
+
+    Body:
+
+    ```json
+    {
+        "comment": "Updated comment"
+    }
+    ```
+
+    Success response:
+
+    202 Accepted
+
+    ```json
+    {
+        "id": 1,
+        "user_id": 1,
+        "ip": null,
+        "is_approved": true,
+        "comment": "Updated comment",
+        "commentable_type": "ClarityTech\\Cms\\Models\\Content",
+        "commentable_id": 1,
+        "created_at": "2024-08-20T18:31:57.000000Z",
+        "updated_at": "2024-08-22T13:31:51.000000Z",
+        "deleted_at": null
+    }
+    ```
+
+5. Delete a specific comment
+
+    ```
+    DELETE /api/cms/comments/{slug}
+    ```
+
+    Success response:
+
+    204 No Content
+
+
 ### Admin Panel Usage
 
 If you have Filament installed, you can access and manage your contents, taxonomies etc through the Filament interface.
@@ -174,8 +313,8 @@ If you discover any security related issues, please email author@email.com inste
 
 ## Credits
 
-- [Author Name][link-author]
-- [All Contributors][link-contributors]
+-   [Author Name][link-author]
+-   [All Contributors][link-contributors]
 
 ## License
 
@@ -185,7 +324,6 @@ MIT. Please see the [license file](license.md) for more information.
 [ico-downloads]: https://img.shields.io/packagist/dt/clarity-tech/cms.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/clarity-tech/cms/master.svg?style=flat-square
 [ico-styleci]: https://styleci.io/repos/12345678/shield
-
 [link-packagist]: https://packagist.org/packages/clarity-tech/cms
 [link-downloads]: https://packagist.org/packages/clarity-tech/cms
 [link-travis]: https://travis-ci.org/clarity-tech/cms
