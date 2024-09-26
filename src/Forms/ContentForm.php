@@ -63,6 +63,11 @@ class ContentForm
                         ->reactive()
                         ->required(),
 
+                    Select::make('taxonomies')
+                        ->relationship('taxonomy', 'name')
+                        ->required()
+                        ->preload(true),
+
                     SpatieTagsInput::make('tags')
                         ->placeholder('Write tag name and hit enter')
                         ->reorderable(),

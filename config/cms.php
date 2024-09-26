@@ -31,4 +31,10 @@ return [
     'routes' => [
         'api_prefix' => 'api/cms',
     ],
+
+    // Specify the taxonomy types
+    'taxonomy_types' => [
+        'category' => 'Category',
+        // 'tag' => 'Tag',
+    ],
 ];
