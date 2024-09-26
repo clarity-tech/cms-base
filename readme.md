@@ -71,6 +71,7 @@ You can change the `cms.php` file in config directory:
 3. `routes`: Customize route path by modifying prefix.
 4. `models`: You can have your own models and use those.
 5. `actions`: You can add your own actions as well.
+6. `taxonomy_types`: You decide what taxonomy types you want to have.
 
 ## Usage
 

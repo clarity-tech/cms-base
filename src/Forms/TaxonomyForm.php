@@ -18,10 +18,7 @@ class TaxonomyForm
             Select::make('type_of')
                 ->label('Type')
                 ->required()
-                ->options([
-                    'category' => 'Category',
-                    'tag' => 'Tag',
-                ]),
+                ->options(config('cms.taxonomy_types')),
 
             KeyValue::make('custom_properties')
                 ->columnSpanFull(),
