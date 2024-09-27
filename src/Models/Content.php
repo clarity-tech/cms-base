@@ -81,7 +81,7 @@ class Content extends Model implements HasMedia
 
     public function taxonomy(): BelongsTo
     {
-        return $this->belongsTo(Taxonomy::class);
+        return $this->belongsTo(Taxonomy::class, 'taxonomy_id');
     }
 
     // FIXME: disabled author_id in content table temporarily

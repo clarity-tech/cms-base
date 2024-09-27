@@ -74,6 +74,7 @@ class ContentResource extends Resource
                         'page' => 'info',
                         default => 'warning'
                     }),
+                Tables\Columns\TextColumn::make('taxonomy.name'),
                 SpatieMediaLibraryImageColumn::make('Featured Image')
                     ->collection('featured'),
                 SpatieTagsColumn::make('tags'),
