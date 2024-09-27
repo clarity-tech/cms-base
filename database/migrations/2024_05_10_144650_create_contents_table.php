@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('contents', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('taxonomy_id')
+                ->nullable()
+                ->constrained('taxonomies');
             // $table->foreignId('author_id') // FIXME: disabled author_id in content table temporarily
             //     ->constrained('taxonomies')
             //     ->cascadeOnDelete();

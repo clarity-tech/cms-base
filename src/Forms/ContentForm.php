@@ -63,7 +63,8 @@ class ContentForm
                         ->reactive()
                         ->required(),
 
-                    Select::make('taxonomies')
+                    Select::make('taxonomy_id')
+                        ->label('Taxonomy')
                         ->relationship('taxonomy', 'name')
                         ->required()
                         ->preload(true),
