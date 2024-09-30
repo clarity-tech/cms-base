@@ -24,6 +24,7 @@ class Content extends Model implements HasMedia
     public string $state;
 
     protected $fillable = [
+        'taxonomy_id',
         'layout',
         'title',
         'slug',
