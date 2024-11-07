@@ -9,6 +9,8 @@ use ClarityTech\Cms\Contracts\UpdatesContents;
 
 class Cms
 {
+    public static $loadMigrations = true;
+    
     /**
      * Get the name of the content model used by the application.
      *
